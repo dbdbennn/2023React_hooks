@@ -1,44 +1,44 @@
-import { useState, useEffect } from "react";
-
-
+import { useReducer } from "react";
+function reducer(state, action) {
+    return {
+        ...state,
+        [action.name]: action.value,
+    };
+}
 const Info = () => {
-    const [name, setName] = useState('');
-    const [nickname, setNickname] = useState('');
+    const [state, dispatch] = useReducer(reducer, {
+    name: "",
+    nickname: "",
+});
+const { name, nickname } = state;
+const onChange = (e) => {
+    dispatch(e.target);
+};
+return (
+    <div>
+        <div>
+            <input name="name" value={name}
+            
+            onChange={onChange} />
+            
+            <input name="nickname" value={nickname}
+            
+            onChange={onChange} />
+        
+        </div>
 
-    // Info 컴포넌트가 마운트 될 때 useEffect가 2번 호출
-    useEffect(() => {
-        console.log('렌더링 완료됨')
-        console.log({
-            name,
-            nickname,
-        });
-        console.log("마운트 될때만 실행됩니다.")
-    })
-
-    const onChangeName = (e) => {
-        setName(e.target.value);
-        // name값 변경
-    }
-
-    const onChangeNickname = (e) => {
-        setNickname(e.target.value);
-        // nickname값 변경
-    }
-
-    return (
         <div>
             <div>
-                <input valuse={name} onChange={onChangeName}/>
-                <input valuse={nickname} onChange={onChangeNickname}/>
+                <b>이름:</b>
+                {name}
             </div>
+
             <div>
-                <b>이름: </b> {name}
-            </div>
-            <div>
-                <b>닉네임: </b> {nickname}
+                <b>닉네임:</b>
+                {nickname}
             </div>
         </div>
-    )
-}
-
-export default Info;
+    </div>
+    );
+    };
+    export default Info;
